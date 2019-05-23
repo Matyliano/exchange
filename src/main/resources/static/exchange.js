@@ -1,9 +1,11 @@
 var $select = $('#currencies');
 
-$.getJSON('currencies.json', function(currencies){
+$.getJSON('currencies.json',function (data) {
     $select.html('');
 
-    for(var i = 0; i < currencies['currencies'].length; i++){
-        $select.append('<option id="' + currencies['currencies'][i]['id'] + '">' + '</option>');
+    for(var i =0; i < data['currencies'].length;i++){
+        $select.append('<option id="' + data['currencies'][i]['abbreviation'] + '">' + data['currencies'][i]['name'] + '</option>');
     }
+
 });
+

@@ -9,7 +9,7 @@
     "type": "version",
     "registry": true,
     "raw": "@fortawesome/fontawesome-free@5.8.2",
-    "name": "@fortawesome/fontawesome-free",
+    "abbreviation": "@fortawesome/fontawesome-free",
     "escapedName": "@fortawesome%2ffontawesome-free",
     "scope": "@fortawesome",
     "rawSpec": "5.8.2",
@@ -24,7 +24,7 @@
   "_spec": "@fortawesome/fontawesome-free@5.8.2",
   "_where": "/Users/DANGER_DAVID/Sites/startbootstrap-templates/startbootstrap-sb-admin",
   "author": {
-    "name": "Dave Gandy",
+    "abbreviation": "Dave Gandy",
     "email": "dave@fontawesome.com",
     "url": "http://twitter.com/davegandy"
   },
@@ -34,23 +34,23 @@
   "bundleDependencies": false,
   "contributors": [
     {
-      "name": "Brian Talbot",
+      "abbreviation": "Brian Talbot",
       "url": "http://twitter.com/talbs"
     },
     {
-      "name": "Travis Chase",
+      "abbreviation": "Travis Chase",
       "url": "http://twitter.com/supercodepoet"
     },
     {
-      "name": "Rob Madole",
+      "abbreviation": "Rob Madole",
       "url": "http://twitter.com/robmadole"
     },
     {
-      "name": "Geremia Taglialatela",
+      "abbreviation": "Geremia Taglialatela",
       "url": "http://twitter.com/gtagliala"
     },
     {
-      "name": "Mike Wilkerson",
+      "abbreviation": "Mike Wilkerson",
       "url": "http://twitter.com/mw77"
     }
   ],
@@ -71,7 +71,7 @@
   ],
   "license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
   "main": "js/fontawesome.js",
-  "name": "@fortawesome/fontawesome-free",
+  "abbreviation": "@fortawesome/fontawesome-free",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FortAwesome/Font-Awesome.git"
