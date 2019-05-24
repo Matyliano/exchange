@@ -1,4 +1,5 @@
-var $select = $('#currencies');
+
+var $select = $('#currencies-dropdown');
 
 $.getJSON('currencies.json',function (data) {
     $select.html('');
