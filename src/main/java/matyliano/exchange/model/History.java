@@ -1,7 +1,6 @@
 package matyliano.exchange.model;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 public class History {

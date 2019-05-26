@@ -18,35 +18,19 @@ import java.security.cert.X509Certificate;
 
 public class ClientHelper {
 
- public static RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-
-     TrustStrategy trustStrategy = new TrustStrategy() {
-         @Override
-         public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-             return false;
-         }
-     };
-     // Trust own CA and all self-signed certs
-     SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, trustStrategy).build();
-     // Allow TLSv1 protocol only
-     SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
-     CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+    public static RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        TrustStrategy trustStrategy = (x509Certificates, s) -> false;
+        // Trust own CA and all self-signed certs
+        SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, trustStrategy).build();
+        // Allow TLSv1 protocol only
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+        CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
 
 
-     HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-     httpComponentsClientHttpRequestFactory.setHttpClient(httpclient);
+        HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        httpComponentsClientHttpRequestFactory.setHttpClient(httpclient);
 
-     RestTemplate restTemplate = new RestTemplate(httpComponentsClientHttpRequestFactory);
-
-     return restTemplate;
- }
-
-
-
-
-
-
-
-
+        return new RestTemplate(httpComponentsClientHttpRequestFactory);
+    }
 
 }
