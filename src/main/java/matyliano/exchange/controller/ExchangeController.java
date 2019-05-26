@@ -29,7 +29,7 @@ public class ExchangeController {
 
     @GetMapping("/")
     public ModelAndView index() throws FileNotFoundException {
-        List<Currency> currencies = CurrencyReader.loadDataFrom("C:\\Users\\joann\\OneDrive\\Pulpit\\Nowy folder\\exchange\\src\\main\\resources\\currencies.json");
+        List<Currency> currencies = CurrencyReader.loadDataFrom("currencies.json");
 
         return new ModelAndView("index")
                 .addObject("exchangeRateForm", new ExchangeRateForm())
