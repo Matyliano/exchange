@@ -1,5 +1,4 @@
-{
-  "currencies" :
+
 [
     {
       "code": "AED",
@@ -682,4 +681,3 @@
       "name": "Zimbabwean Dollar"
     }
   ]
-}

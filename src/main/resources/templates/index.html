@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
   <meta charset="utf-8">
@@ -16,29 +15,23 @@
 
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.min.css" rel="stylesheet">
+  <link href="css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
-  <!--<nav class="navbar navbar-expand navbar-dark bg-dark static-top">-->
 
-    <!--<a class="navbar-brand mr-1" href="index.html"> Exchange </a>-->
-
-    <!--<button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">-->
-      <!--<i class="fas fa-bars"></i>-->
-    <!--</button>-->
 
   <div id="wrapper">
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
           </div>
-          <div class="sidebar-brand-text mx-3">Exchanege</div>
+          <div class="sidebar-brand-text mx-3">Exchange</div>
         </a>
 
 
@@ -47,7 +40,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>New Trade</span></a>
         </li>
@@ -75,8 +68,6 @@
           <i class="fa fa-bars"></i>
         </button>
 
-
-
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
 
@@ -86,24 +77,12 @@
               <i class="fas fa-search fa-fw"></i>
             </a>
             <!-- Dropdown - Messages -->
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-              <form class="form-inline mr-auto w-100 navbar-search">
-                <div class="input-group">
-                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+
           </li>
 
           <div class="topbar-divider d-none d-sm-block"></div>
 
         </ul>
-
 
         <!-- End of Topbar -->
 
@@ -117,14 +96,17 @@
 
           <h2>Choose data to find rate and generate chart </String></h2>
 
-          <form action="/exchangeRate" method="post">
-            <select id="currencies"   class="btn btn-info btn-icon-split">
-                <!--<option value="">Exchange Rate From</option>-->
+          <form action="/exchange" method="POST" th:object="${exchangeRateForm}">
+            <select th:field="*{currencyFrom}" class="btn btn-info btn-icon-split">
+              <option value=""> Currency From </option>
+              <option th:each="currency : ${currencies}" th:value="${currency.code}" th:text="${currency.name}"/>
             </select>
 
-            <select id="currencies" class="btn btn-info btn-icon-split">
-              <option value="">Exchange Rate To</option>
+            <select th:field="*{currencyTo}" class="btn btn-info btn-icon-split">
+              <option value=""> Currency To </option>
+              <option th:each="currency : ${currencies}" th:value="${currency.code}" th:text="${currency.name}"/>
             </select>
+
             <input type="submit" class="btn btn-info btn-icon-split" value="Show Rate">
           </form>
         </div>
@@ -166,16 +148,12 @@
 
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
+  <script src="js/sb-admin-2.js"></script>
 
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-
-  <script type="text/javascript" src="exchange.js"></script>
-
-
 
 
 </body>
