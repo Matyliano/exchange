@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html  ng-app="Appa" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Currencies</title>
+
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
-
 <body id="page-top">
 
 <div id="wrapper">
@@ -85,20 +83,46 @@
             </ul>
             </nav>
 
-            <div class="container-fluid">
+            <div class="container">
 
-                <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-                <h1>Exchange Results</h1>
+                <div class="row"  style="margin-bottom:50px;">
+                    <div class="col-md-offset-2 col-md-8">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">All Currencies</h2>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="btn-success">
+                                        <th>Create At</th>
+                                        <th>Currency From</th>
+                                        <th>Currency To </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${#lists.isEmpty(lastHistoricalRates)}" class="btn-warning">
+                                        <td colspan="4" align="center">No Currency Added Yet!</td>
+                                    </tr>
+                                    <tr th:each="lastHistoricalRate : ${lastHistoricalRates}">
+                                        <td th:text="${lastHistoricalRate.createdAt}"></td>
+                                        <td th:text="${lastHistoricalRate.currencyFrom}"></td>
+                                        <td th:text="${lastHistoricalRate.currencyTo}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                <p class="btn btn-primary btn-icon-split" th:text="'From: ' + ${history[0].getFromCurrency()}"/>
-                <p class="btn btn-success btn-icon-split" th:text="'To: ' + ${history[0].getToCurrency()}"/>
-                <p class="btn btn-info btn-icon-split" th:text="'Rate: ' + ${history[0].getRate()}"/>
-
-                <canvas id="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
         </div>
         <div footer></div>
     </div>
+
 
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -108,102 +132,6 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
-<script src="vendor/chart.js/Chart.min.js"></script>
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 </html>
-
-<script type="text/javascript" th:inline="javascript">
-    //line
-    var ctxL = document.getElementById("lineChart").getContext('2d');
-
-    var currencyFrom = /*[[${history[0].getFromCurrency()}]]*/ 'fromCurrency';
-    var currencyTo = /*[[${history[0].getToCurrency()}]]*/ 'toCurrency';
-
-
-    var dateTime = [];
-    /*[# th:each="n : ${dateTime}"]*/
-    dateTime.push("[(${n})]");
-    /*[/]*/
-
-    var close = [];
-    /*[# th:each="n : ${close}"]*/
-    close.push("[(${n})]");
-    /*[/]*/
-
-    var open = [];
-    /*[# th:each="n : ${open}"]*/
-    open.push("[(${n})]");
-    /*[/]*/
-
-    var high = [];
-    /*[# th:each="n : ${high}"]*/
-    high.push("[(${n})]");
-    /*[/]*/
-
-    var low = [];
-    /*[# th:each="n : ${low}"]*/
-    low.push("[(${n})]");
-    /*[/]*/
-
-    var myLineChart = new Chart(ctxL, {
-        type: 'line',
-        data: {
-            labels: dateTime,
-            datasets: [{
-                label: "Close",
-                data: close,
-                backgroundColor: [
-                    'rgba(105, 0, 132, .2)',
-                ],
-                borderColor: [
-                    'rgba(200, 99, 132, .7)',
-                ],
-                borderWidth: 2
-            },
-                {
-                    label: "Open",
-                    hidden: true,
-                    data: open,
-                    backgroundColor: [
-                        'rgba(0, 137, 132, .2)',
-                    ],
-                    borderColor: [
-                        'rgba(0, 10, 130, .7)',
-                    ],
-                    borderWidth: 2
-                },
-                {
-                    label: "High",
-                    hidden: true,
-                    data: high,
-                    backgroundColor: [
-                        'rgba(156, 227, 130, .2)',
-                    ],
-                    borderColor: [
-                        'rgba(66, 155, 34, .7,)',
-                    ],
-                    borderWidth: 2
-                },
-                {
-                    label: "Low",
-                    hidden: true,
-                    data: low,
-                    backgroundColor: [
-                        'rgba(235, 237, 84, .2)',
-                    ],
-                    borderColor: [
-                        'rgba(196, 198, 21, .7)',
-                    ],
-                    borderWidth: 2
-                }
-            ]
-        },
-        options: {
-            responsive: true
-        }
-    });
-
-</script>
