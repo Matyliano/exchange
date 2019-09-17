@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  ng-app="Appa" lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,120 +9,55 @@
 
     <title>Currencies</title>
 
-
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-<body id="page-top">
 
+<body id="page-top">
 <div id="wrapper">
 
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Exchanege</div>
-        </a>
+    <div th:replace="fragments/layout :: header"></div>
 
-        <hr class="sidebar-divider my-0">
+    <div class="container">
 
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>New Trade</span></a>
-        </li>
-
-        <li class="nav-item active">
-            <!--<a class="nav-link" href="/">-->
-            <a href="currencies" th:href="@{/currencies}" class="nav-link">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>History of Trades</span></a>
-        </li>
-
-        <hr class="sidebar-divider">
-
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-    </ul>
-
-
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                <i class="fa fa-bars"></i>
-            </button>
-
-            <ul class="navbar-nav ml-auto">
-
-
-                <li class="nav-item dropdown no-arrow d-sm-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-search fa-fw"></i>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                         aria-labelledby="searchDropdown">
-                        <form class="form-inline mr-auto w-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                       placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+        <div class="row" style="margin-bottom:50px;">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <br>
+                        <h2 class="panel-title">All Currencies</h2>
                     </div>
-                </li>
-                <div class="topbar-divider d-none d-sm-block"></div>
-            </ul>
-            </nav>
-
-            <div class="container">
-
-                <div class="row"  style="margin-bottom:50px;">
-                    <div class="col-md-offset-2 col-md-8">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h2 class="panel-title">All Currencies</h2>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr class="btn-success">
-                                        <th>Create At</th>
-                                        <th>Currency From</th>
-                                        <th>Currency To </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:if="${#lists.isEmpty(lastHistoricalRates)}" class="btn-warning">
-                                        <td colspan="4" align="center">No Currency Added Yet!</td>
-                                    </tr>
-                                    <tr th:each="lastHistoricalRate : ${lastHistoricalRates}">
-                                        <td th:text="${lastHistoricalRate.createdAt}"></td>
-                                        <td th:text="${lastHistoricalRate.currencyFrom}"></td>
-                                        <td th:text="${lastHistoricalRate.currencyTo}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="btn-success">
+                                <th>Create At</th>
+                                <th>Currency From</th>
+                                <th>Currency To</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${#lists.isEmpty(lastHistoricalRates)}" class="btn-warning">
+                                <td colspan="4" align="center">No Currency Added Yet!</td>
+                            </tr>
+                            <tr th:each="lastHistoricalRate : ${lastHistoricalRates}">
+                                <td th:text="${lastHistoricalRate.createdAt}"></td>
+                                <td th:text="${lastHistoricalRate.currencyFrom}"></td>
+                                <td th:text="${lastHistoricalRate.currencyTo}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
-
         </div>
-        <div footer></div>
     </div>
 
+</div>
+<div th:replace="fragments/layout :: footer"></div>
+</div>
 
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
