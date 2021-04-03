@@ -16,6 +16,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class ClientHelper {
 
+    private ClientHelper(){}
+
     public static RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         TrustStrategy trustStrategy = (x509Certificates, s) -> false;
 

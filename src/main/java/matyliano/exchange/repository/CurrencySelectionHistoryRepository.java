@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CurrencySelectionHistoryRepository extends JpaRepository<CurrencySelectionHistory, Long> {
 
-    CurrencySelectionHistory save(CurrencySelectionHistory currencySelectionHistory);
-
-
+    //CurrencySelectionHistory save(CurrencySelectionHistory currencySelectionHistory);
 }

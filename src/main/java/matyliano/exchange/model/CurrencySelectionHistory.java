@@ -1,12 +1,23 @@
 package matyliano.exchange.model;
 
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import jdk.jfr.Timestamp;
+import lombok.AllArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "currencies")
 public class CurrencySelectionHistory {
 
@@ -14,33 +25,10 @@ public class CurrencySelectionHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Timestamp
     private LocalDateTime createdAt;
 
     private String currencyFrom;
 
     private String currencyTo;
-
-    public String getCurrencyFrom() {
-        return currencyFrom;
-    }
-
-    public void setCurrencyFrom(String currencyFrom) {
-        this.currencyFrom = currencyFrom;
-    }
-
-    public String getCurrencyTo() {
-        return currencyTo;
-    }
-
-    public void setCurrencyTo(String currencyTo) {
-        this.currencyTo = currencyTo;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

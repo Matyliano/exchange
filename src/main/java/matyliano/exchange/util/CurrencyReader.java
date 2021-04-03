@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class CurrencyReader {
 
-    private final static Type CURRENCIES_TYPE = new TypeToken<List<Currency>>() {
+    private static final Type CURRENCIES_TYPE = new TypeToken<List<Currency>>() {
     }.getType();
 
 
@@ -26,6 +26,7 @@ public class CurrencyReader {
             File file = stream2file(resourceAsStream);
             reader = new JsonReader(new FileReader(file));
         }
+        assert reader != null;
         return new Gson().fromJson(reader, CURRENCIES_TYPE);
     }
 
@@ -37,6 +38,4 @@ public class CurrencyReader {
         }
         return tempFile;
     }
-
-
 }

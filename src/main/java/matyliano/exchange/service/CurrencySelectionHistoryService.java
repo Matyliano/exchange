@@ -14,19 +14,17 @@ public class CurrencySelectionHistoryService {
 
     private final CurrencySelectionHistoryRepository repository;
 
-    @Autowired
-    public CurrencySelectionHistoryService(CurrencySelectionHistoryRepository repository) {
-        this.repository = Objects.requireNonNull(repository, "CurrencySelectionHistoryRepository should be defined");
-    }
 
+    public CurrencySelectionHistoryService(CurrencySelectionHistoryRepository repository) {
+        this.repository = Objects.requireNonNull(repository,
+                "CurrencySelectionHistoryRepository should be defined");
+    }
 
     public List<CurrencySelectionHistory> getHistoryRate() {
         return repository.findAll();
     }
 
-
     public CurrencySelectionHistory save(CurrencySelectionHistory currencySelectionHistory) {
         return repository.save(currencySelectionHistory);
     }
-
 }

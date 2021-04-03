@@ -34,18 +34,14 @@ public class ExchangeController {
 
     private final CurrencySelectionHistoryService currencySelectionHistoryService;
 
-
-    @Autowired
     public ExchangeController(CurrencySelectionHistoryService currencySelectionHistoryService) {
         this.currencySelectionHistoryService = Objects.requireNonNull(currencySelectionHistoryService, "CurrencySelectionHistoryService should be defined ");
     }
-
-
+    
     @GetMapping("/")
     public ModelAndView index() throws IOException {
         CurrencyReader currencyReader = new CurrencyReader();
         List<Currency> currencies = currencyReader.loadDataFrom("currencies.json");
-
 
         return new ModelAndView("index")
                 .addObject("exchangeRateForm", new ExchangeRateForm())
@@ -66,9 +62,10 @@ public class ExchangeController {
 
 
         //exchange rate
-        String exchangeUrl = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + exchangeRateFrom + "&to_currency=" + exchangeRateTo + "&apikey=" + API_KEY;
+        String exchangeUrl = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency="
+                + exchangeRateFrom + "&to_currency=" + exchangeRateTo + "&apikey=" + API_KEY;
         ResponseEntity<String> exchangeResponse = getRestTemplate().getForEntity(exchangeUrl, String.class);
-        String exchaneRate = null;
+        String exchangeRate = null;
 
         String exchangeRateResp = exchangeResponse.toString().replaceAll("\\s", "");
         String regex = "\"5.ExchangeRate\\\":\\\"(.*?)\",";
@@ -76,7 +73,7 @@ public class ExchangeController {
         Matcher exchangeRateMatcher = exchangeRatePattern.matcher(exchangeRateResp);
 
         if (exchangeRateMatcher.find()) {
-            exchaneRate = exchangeRateMatcher.group(1);
+            exchangeRate = exchangeRateMatcher.group(1);
         }
 
 
@@ -84,7 +81,6 @@ public class ExchangeController {
         String historyUrl = "https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=" + exchangeRateFrom + "&to_symbol=" + exchangeRateTo + "&apikey=" + API_KEY;
         ResponseEntity<String> history = getRestTemplate().getForEntity(historyUrl, String.class);
 
-        String historyDate = null;
         String historyResp = history.toString().replaceAll("\\s", "");
 
         if (historyResp.contains("ErrorMessage")) {
@@ -96,12 +92,11 @@ public class ExchangeController {
 
 
         Pattern historyPattern = Pattern.compile("([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))...\"1.open\\\":\\\"(.*?)\",\"2.high\":\"(.*?)\",\"3.low\":\"(.*?)\",\"4.close\":\"(.*?)\"");
-        Matcher historyMatcher = historyPattern.matcher(historyResp);
 
         List<History> histories = new ArrayList<>();
         Matcher match = historyPattern.matcher(historyResp);
         while (match.find()) {
-            histories.add(new History(exchangeRateFrom, exchangeRateTo, exchaneRate, match.group(1), match.group(4), match.group(5), match.group(6), match.group(7)));
+            histories.add(new History(exchangeRateFrom, exchangeRateTo, exchangeRate, match.group(1), match.group(4), match.group(5), match.group(6), match.group(7)));
         }
 
         List<String> dateTime = new ArrayList<>();
@@ -131,16 +126,8 @@ public class ExchangeController {
         modelAndView.addObject("high", high);
         modelAndView.addObject("low", low);
 
-
-
-
-
-
         return modelAndView;
     }
-
-
-
 }
 
 
